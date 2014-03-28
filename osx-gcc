@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/osx-gcc | sh
+
+# Check if command line tools exist (gcc is part of them)
+command -v gcc >/dev/null 2>&1 || {
+
+  # gcc not found; 
+  case $OSTYPE in
+
+    # Install cltools on OS X 
+    darwin* ) echo "Installing command line tools on OS X"
+
+      # Install app if not already installed
+      command -v app >/dev/null 2>&1 || { curl -sS https://raw.github.com/suderman/app/master/install.sh | sh; }
+
+      # Install command line tools with app
+      app "https://dl.dropbox.com/s/yd46saofpsm5x96/cltools.dmg"
+
+      # Apparently this happens
+      sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+      break;;
+
+    linux* ) echo "Command line tools package is only available for OS X"
+      break;;
+
+  esac
+}
+

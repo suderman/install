@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/mysql | sh
+
+# prefix directory
+PREFIX=$HOME/local
+
+# Check if mysql exists
+command -v mysql >/dev/null 2>&1 || {
+
+  # mysql not found; 
+  case $OSTYPE in
+
+    # Install mysql on OS X 
+    darwin* ) echo "Installing mysql on OS X"
+
+      # Ensure homebrew has been installed
+      curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
+
+      # Install with homebrew
+      brew install mysql
+
+      # Apparently I'm supposed to do all this
+      unset TMPDIR
+      mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+      mysql.server start
+
+      # This too
+      mkdir -p ~/Library/LaunchAgents
+      launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+      cp "$(brew --prefix mysql)/homebrew.mxcl.mysql.plist" ~/Library/LaunchAgents/
+      launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+
+      break;;
+
+    # Install mysql to ~/local
+    linux* ) echo "Don't have a way to install mysql on Ubuntu yet"
+      break;;
+
+  esac
+}
+

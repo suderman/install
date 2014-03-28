@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/libevent | sh
+
+# prefix directory
+PREFIX=$HOME/local
+
+# Check for libevent
+if [ ! $PREFIX/lib/libevent.a ]; then
+  
+  # libevent not found; 
+  case $OSTYPE in
+
+    # Install libevent on OS X 
+    darwin* ) echo "Not be installed on OS X"
+      break;;
+
+    # Install libevent to ~/local
+    linux* ) echo "Installing libevent on Ubuntu"
+
+      # Make tmp directory and change into it
+      mkdir -p /tmp/libevent && cd /tmp/libevent
+
+      # Download the source
+      curl -sS https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz > /tmp/libevent.tar.gz
+
+      # Extract the contents into our tmp directory
+      tar -xv --file=/tmp/libevent.tar.gz --strip-components=1 --directory=/tmp/libevent
+      
+      # Configure libevent and build it
+      ./configure --prefix=$PREFIX --disable-shared
+      make && make install
+      break;;
+
+  esac
+fi
+

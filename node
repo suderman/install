@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/node | sh
+
+# Check if node exists
+command -v node >/dev/null 2>&1 || {
+
+  # node not found; 
+  case $OSTYPE in
+
+    # Install node on OS X 
+    darwin* ) echo "Installing node on OS X"
+
+      # Install app if not already installed
+      command -v app >/dev/null 2>&1 || { curl -sS https://raw.github.com/suderman/app/master/install.sh | sh; }
+
+      # Install node with app
+      app "http://nodejs.org/dist/v0.10.26/node-v0.10.26.pkg"
+      break;;
+
+    # Install node on Ubuntu
+    linux* ) echo "Installing node on Ubuntu"
+
+      # Install node with apt-get
+      sudo apt-get install nodejs
+      break;;
+
+  esac
+}
+

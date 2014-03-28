@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/osx-gcc42 | sh
+
+# Check if gcc42 exists
+command -v /usr/local/bin/gcc-4.2 >/dev/null 2>&1 || {
+
+  # gcc42 not found; 
+  case $OSTYPE in
+
+    # Install gcc42 on OS X 
+    darwin* ) echo "Installing gcc-4.2 on OS X"
+
+      # Ensure homebrew has been installed
+      curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
+
+      # Install with homebrew
+      brew tap homebrew/dupes
+      brew install apple-gcc42
+      
+      # Symlink it up
+      sudo ln -s /usr/local/bin/gcc-4.2 /usr/bin/gcc-4.2
+      break;;
+
+    linux* ) echo "Apple gcc-4.2 is only available for OS X"
+      break;;
+
+  esac
+}
+

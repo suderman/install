@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/git | sh
+
+# Check if Git exists
+command -v git >/dev/null 2>&1 || {
+
+  # Git not found; 
+  case $OSTYPE in
+
+    # Install Git on OS X 
+    darwin* ) echo "Installing Git on OS X"
+
+      # Install app if not already installed
+      command -v app >/dev/null 2>&1 || { curl -sS https://raw.github.com/suderman/app/master/install.sh | sh; }
+
+      # Install Git with app
+      app "https://git-osx-installer.googlecode.com/files/git-1.8.4.2-intel-universal-snow-leopard.dmg"
+      export PATH=$PATH:/usr/local/git/bin
+      break;;
+
+    # Install Git on Ubuntu
+    linux* ) echo "Installing Git on Linux"
+
+      # Install Git with apt-get
+      sudo apt-get install git-core
+      break;;
+
+  esac
+}
+

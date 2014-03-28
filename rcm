@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/rcm | sh
+
+# dotfiles and prefix directory
+DOTFILES=$HOME/.dotfiles
+PREFIX=$HOME/local
+
+# Check if rcup (one command from rcm) exists
+command -v rcup >/dev/null 2>&1 || {
+
+  # rcm not found; 
+  case $OSTYPE in
+
+    # Install rcm on OS X 
+    darwin* ) echo "Installing rcm on OS X"
+
+      # Ensure homebrew has been installed
+      curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
+
+      # Install with homebrew
+      brew tap thoughtbot/formulae
+      brew install rcm
+      break;;
+
+    # Install rcm to ~/local
+    linux* ) echo "Installing rcm on Ubuntu"
+
+      # Make tmp directory and change into it
+      mkdir -p /tmp/rcm && cd /tmp/rcm
+
+      # Download the source
+      curl https://thoughtbot.github.io/rcm/dist/rcm-1.2.1.tar.gz > /tmp/rcm.tar.gz
+
+      # Extract the contents into our tmp directory
+      tar -xv --file=/tmp/rcm.tar.gz --strip-components=1 --directory=/tmp/rcm
+
+      # Configure rcm to run out of our dotfiles and install
+      ./configure --prefix=$PREFIX && make && make install
+
+      # These path additions should be in the zshrc as well
+      export PATH=$PREFIX/bin:$PATH
+      export MANPATH=$PREFIX/share:$PATH
+      break;;
+
+  esac
+
+  # Ensure the .rcrc file exists before rcup is run at all
+  ln -sf $DOTFILES/rcrc $HOME/.rcrc
+}
+
