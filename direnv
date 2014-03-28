@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/direnv | sh
+
+# prefix directory
+PREFIX=$HOME/local
+
+# Check if direnv exists
+command -v direnv >/dev/null 2>&1 || {
+
+  # direnv not found; 
+  case $OSTYPE in
+
+    # Install direnv on OS X 
+    darwin* ) echo "Installing direnv on OS X"
+
+      # Ensure homebrew has been installed
+      curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
+
+      # Install with homebrew
+      brew install direnv
+      break;;
+
+    # Install direnv to ~/local
+    linux* ) echo "Don't have a way to install direnv on Ubuntu yet"
+      break;;
+
+  esac
+}
+
