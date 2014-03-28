@@ -45,12 +45,14 @@ command -v rcup >/dev/null 2>&1 || {
       # These path additions should be in the zshrc as well
       export PATH=$PREFIX/bin:$PATH
       export MANPATH=$PREFIX/share:$PATH
-      rcup
       ;;
 
   esac
 
   # Ensure the .rcrc file exists before rcup is run at all
   ln -sf $DOTFILES/rcrc $HOME/.rcrc
+
+  # Run rcup
+  rcup
 }
 
