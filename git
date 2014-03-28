@@ -10,10 +10,10 @@
 command -v git >/dev/null 2>&1 || {
 
   # Git not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install Git on OS X 
-    darwin* ) echo "Installing Git on OS X"
+    Darwin ) echo "Installing Git on OS X"
 
       # Install app if not already installed
       command -v app >/dev/null 2>&1 || { curl -sS https://raw.github.com/suderman/app/master/install.sh | sh; }
@@ -21,14 +21,14 @@ command -v git >/dev/null 2>&1 || {
       # Install Git with app
       app "https://git-osx-installer.googlecode.com/files/git-1.8.4.2-intel-universal-snow-leopard.dmg"
       export PATH=$PATH:/usr/local/git/bin
-      break;;
+      ;;
 
     # Install Git on Ubuntu
-    linux* ) echo "Installing Git on Linux"
+    Linux ) echo "Installing Git on Linux"
 
       # Install Git with apt-get
       sudo apt-get install git-core
-      break;;
+      ;;
 
   esac
 }

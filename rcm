@@ -14,10 +14,10 @@ PREFIX=$HOME/local
 command -v rcup >/dev/null 2>&1 || {
 
   # rcm not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install rcm on OS X 
-    darwin* ) echo "Installing rcm on OS X"
+    Darwin ) echo "Installing rcm on OS X"
 
       # Ensure homebrew has been installed
       curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
@@ -25,10 +25,10 @@ command -v rcup >/dev/null 2>&1 || {
       # Install with homebrew
       brew tap thoughtbot/formulae
       brew install rcm
-      break;;
+      ;;
 
     # Install rcm to ~/local
-    linux* ) echo "Installing rcm on Ubuntu"
+    linux ) echo "Installing rcm on Ubuntu"
 
       # Make tmp directory and change into it
       mkdir -p /tmp/rcm && cd /tmp/rcm
@@ -45,7 +45,8 @@ command -v rcup >/dev/null 2>&1 || {
       # These path additions should be in the zshrc as well
       export PATH=$PREFIX/bin:$PATH
       export MANPATH=$PREFIX/share:$PATH
-      break;;
+      rcup
+      ;;
 
   esac
 

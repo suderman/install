@@ -13,14 +13,14 @@ PREFIX=$HOME/local
 if [ ! -d $PREFIX/include/ncurses ]; then
   
   # ncurses not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install ncurses on OS X 
-    darwin* ) echo "Not be installed on OS X"
-      break;;
+    Darwin ) echo "Not be installed on OS X"
+      ;;
 
     # Install ncurses to ~/local
-    linux* ) echo "Installing ncurses on Ubuntu"
+    Linux ) echo "Installing ncurses on Ubuntu"
 
       # Make tmp directory and change into it
       mkdir -p /tmp/ncurses && cd /tmp/ncurses
@@ -34,7 +34,7 @@ if [ ! -d $PREFIX/include/ncurses ]; then
       # Configure ncurses and build it
       ./configure --prefix=$PREFIX --with-default-terminfo-dir=/usr/share/terminfo --with-terminfo-dirs="/etc/terminfo:/lib/terminfo:/usr/share/terminfo"
       make && make install
-      break;;
+      ;;
 
   esac
 fi

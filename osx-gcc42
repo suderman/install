@@ -10,10 +10,10 @@
 command -v /usr/local/bin/gcc-4.2 >/dev/null 2>&1 || {
 
   # gcc42 not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install gcc42 on OS X 
-    darwin* ) echo "Installing gcc-4.2 on OS X"
+    Darwin ) echo "Installing gcc-4.2 on OS X"
 
       # Ensure homebrew has been installed
       curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
@@ -24,10 +24,10 @@ command -v /usr/local/bin/gcc-4.2 >/dev/null 2>&1 || {
       
       # Symlink it up
       sudo ln -s /usr/local/bin/gcc-4.2 /usr/bin/gcc-4.2
-      break;;
+      ;;
 
-    linux* ) echo "Apple gcc-4.2 is only available for OS X"
-      break;;
+    Linux ) echo "Apple gcc-4.2 is only available for OS X"
+      ;;
 
   esac
 }

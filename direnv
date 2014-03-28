@@ -13,21 +13,21 @@ PREFIX=$HOME/local
 command -v direnv >/dev/null 2>&1 || {
 
   # direnv not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install direnv on OS X 
-    darwin* ) echo "Installing direnv on OS X"
+    Darwin ) echo "Installing direnv on OS X"
 
       # Ensure homebrew has been installed
       curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
 
       # Install with homebrew
       brew install direnv
-      break;;
+      ;;
 
     # Install direnv to ~/local
-    linux* ) echo "Don't have a way to install direnv on Ubuntu yet"
-      break;;
+    Linux ) echo "Don't have a way to install direnv on Ubuntu yet"
+      ;;
 
   esac
 }

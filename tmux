@@ -14,10 +14,10 @@ PREFIX=$HOME/local
 command -v tmux >/dev/null 2>&1 || {
 
   # tmux not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install tmux on OS X 
-    darwin* ) echo "Installing tmux on OS X"
+    Darwin ) echo "Installing tmux on OS X"
 
       # Ensure homebrew has been installed
       curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
@@ -37,11 +37,10 @@ command -v tmux >/dev/null 2>&1 || {
       # Load them right now
       launchctl load $LAUNCH/local.pbcopy.plist
       launchctl load $LAUNCH/local.pbpaste.plist
-
-      break;;
+      ;;
 
     # Install tmux to ~/local
-    linux* ) echo "Installing tmux on Ubuntu"
+    Linux ) echo "Installing tmux on Ubuntu"
 
       # Ensure libevent has been installed
       curl https://raw.github.com/suderman/install/master/libevent | sh
@@ -74,7 +73,7 @@ command -v tmux >/dev/null 2>&1 || {
       echo '#!/bin/sh\ncat | nc -q1 localhost 2224\n' > pbcopy
       echo '#!/bin/sh\nnc localhost 2225\n' > pbpaste
       chmod a+x (pbcopy|pbpaste)
-      break;;
+      ;;
 
   esac
 }

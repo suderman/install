@@ -10,20 +10,20 @@
 command -v brew >/dev/null 2>&1 || {
 
   # brew not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install homebrew on OS X 
-    darwin* ) echo "Installing homebrew on OS X"
+    Darwin ) echo "Installing homebrew on OS X"
 
       # Ensure command line tools have been installed
       curl -sS https://raw.github.com/suderman/install/master/osx-gcc | sh
 
       # Run install script
       ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-      break;;
+      ;;
 
-    linux* ) echo "Homebrew is only available for OS X"
-      break;;
+    Linux ) echo "Homebrew is only available for OS X"
+      ;;
 
   esac
 }

@@ -10,10 +10,10 @@
 command -v gcc >/dev/null 2>&1 || {
 
   # gcc not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install cltools on OS X 
-    darwin* ) echo "Installing command line tools on OS X"
+    Darwin ) echo "Installing command line tools on OS X"
 
       # Install app if not already installed
       command -v app >/dev/null 2>&1 || { curl -sS https://raw.github.com/suderman/app/master/install.sh | sh; }
@@ -25,8 +25,8 @@ command -v gcc >/dev/null 2>&1 || {
       sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
       break;;
 
-    linux* ) echo "Command line tools package is only available for OS X"
-      break;;
+    Linux ) echo "Command line tools package is only available for OS X"
+      ;;
 
   esac
 }

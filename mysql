@@ -13,10 +13,10 @@ PREFIX=$HOME/local
 command -v mysql >/dev/null 2>&1 || {
 
   # mysql not found; 
-  case $OSTYPE in
+  case "`uname`" in
 
     # Install mysql on OS X 
-    darwin* ) echo "Installing mysql on OS X"
+    Darwin ) echo "Installing mysql on OS X"
 
       # Ensure homebrew has been installed
       curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
@@ -34,12 +34,11 @@ command -v mysql >/dev/null 2>&1 || {
       launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
       cp "$(brew --prefix mysql)/homebrew.mxcl.mysql.plist" ~/Library/LaunchAgents/
       launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-
-      break;;
+      ;;
 
     # Install mysql to ~/local
     linux* ) echo "Don't have a way to install mysql on Ubuntu yet"
-      break;;
+      ;;
 
   esac
 }
