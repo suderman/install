@@ -6,7 +6,8 @@
 # Open a terminal and run this command:
 # curl https://raw.github.com/suderman/install/master/tmux | sh
 
-# prefix directory
+# dotfiles and prefix directory
+DOTFILES=$HOME/.dotfiles
 PREFIX=$HOME/local
 
 # Check if tmux exists
@@ -24,6 +25,19 @@ command -v tmux >/dev/null 2>&1 || {
       # Install with homebrew
       brew install tmux
       brew reattach-to-user-namespace
+
+      # Install launch agents for remote copy paste
+      # https://gist.github.com/burke/5960455
+      LAUNCH=$HOME/Library/LaunchAgents
+
+      # Symlink from the dotfiles
+      ln -sf $DOTFILES/osx/local.pbcopy.plist $LAUNCH/local.pbcopy.plist
+      ln -sf $DOTFILES/osx/local.pbpaste.plist $LAUNCH/local.pbpaste.plist
+
+      # Load them right now
+      launchctl load $LAUNCH/local.pbcopy.plist
+      launchctl load $LAUNCH/local.pbpaste.plist
+
       break;;
 
     # Install tmux to ~/local
