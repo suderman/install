@@ -34,7 +34,7 @@ command -v rcup >/dev/null 2>&1 || {
       mkdir -p /tmp/rcm && cd /tmp/rcm
 
       # Download the source
-      curl https://thoughtbot.github.io/rcm/dist/rcm-1.2.1.tar.gz > /tmp/rcm.tar.gz
+      curl http://thoughtbot.github.io/rcm/dist/rcm-1.2.1.tar.gz > /tmp/rcm.tar.gz
 
       # Extract the contents into our tmp directory
       tar -xv --file=/tmp/rcm.tar.gz --strip-components=1 --directory=/tmp/rcm
