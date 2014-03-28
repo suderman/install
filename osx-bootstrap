@@ -1,0 +1,82 @@
+#!/bin/sh
+
+# 2014 Jon Suderman
+# https://github.com/suderman/install/
+
+# Open a terminal and run this command:
+# curl https://raw.github.com/suderman/install/master/osx-bootstrap | sh
+
+# What I need to get going on OS X
+# --------------------------------
+
+# Install dotfiles
+curl -sS https://raw.github.com/suderman/install/master/dotfiles | sh
+
+# Install secret dotfiles
+curl -sS https://raw.github.com/suderman/install/master/secret-dotfiles | sh
+
+# Install oh-my-zsh
+curl -sS https://raw.github.com/suderman/install/master/oh-my-zsh | sh
+
+# Install rcm
+curl -sS https://raw.github.com/suderman/install/master/rcm | sh
+
+# Install gcc and other command line tools
+curl -sS https://raw.github.com/suderman/install/master/osx-gcc | sh
+
+# Install gcc42, which is the older compiler for older rubies
+curl -sS https://raw.github.com/suderman/install/master/osx-gcc | sh
+
+# Install node & npm
+curl -sS https://raw.github.com/suderman/install/master/node | sh
+
+# Install tmux
+curl -sS https://raw.github.com/suderman/install/master/tmux | sh
+
+# Install direnv
+brew install direnv
+
+# Install homebrew's git and few utilities
+brew install git
+brew install tig
+brew install gitsh
+
+# Install MySQL
+curl -sS https://raw.github.com/suderman/install/master/mysql | sh
+
+# Install a way to mange and build ruby
+brew install chruby
+brew install ruby-install
+
+# Install python
+brew install python
+ 
+# Install php
+brew tap josegonzalez/php
+brew install php53 --with-mysql --with-cgi
+
+# Install a few more web goodies
+brew install docker
+brew install nginx
+brew install sng
+brew install less
+brew install coffee-script
+
+# Install MacVim
+brew install macvim --with-cscope --with-lua --custom-icons --override-system-vim
+brew linkapps
+
+# Utilities 
+brew tap homebrew/dupes
+brew install rsync
+brew install fswatch
+brew install wget
+brew install autojump
+brew install dockutil
+brew install the_silver_searcher
+brew install ctags
+
+# Sleepwatcher
+brew install sleepwatcher
+curl -sS https://gist.github.com/suderman/7776720/raw/99a08e8a7968ec68830c73e15c4e09ab022dd41a/sleepwatcher.sh | sh
+
