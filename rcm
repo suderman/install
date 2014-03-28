@@ -28,7 +28,7 @@ command -v rcup >/dev/null 2>&1 || {
       ;;
 
     # Install rcm to ~/local
-    linux ) echo "Installing rcm on Ubuntu"
+    Linux ) echo "Installing rcm on Ubuntu"
 
       # Make tmp directory and change into it
       mkdir -p /tmp/rcm && cd /tmp/rcm
@@ -45,12 +45,14 @@ command -v rcup >/dev/null 2>&1 || {
       # These path additions should be in the zshrc as well
       export PATH=$PREFIX/bin:$PATH
       export MANPATH=$PREFIX/share:$PATH
-      rcup
       ;;
 
   esac
 
   # Ensure the .rcrc file exists before rcup is run at all
   ln -sf $DOTFILES/rcrc $HOME/.rcrc
+
+  # Run rcup
+  rcup
 }
 
