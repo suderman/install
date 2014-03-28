@@ -10,49 +10,41 @@
 DOTFILES=$HOME/.dotfiles
 PREFIX=$HOME/local
 
-# Check if rcup (one command from rcm) exists
-command -v rcup >/dev/null 2>&1 || {
+# Is this OS X or Ubuntu? 
+case "`uname`" in
+  
+  # OS X 
+  Darwin ) command -v rcup >/dev/null 2>&1 || {
+    echo "Installing rcm on OS X"
 
-  # rcm not found; 
-  case "`uname`" in
+    # Ensure homebrew has been installed
+    curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
 
-    # Install rcm on OS X 
-    Darwin ) echo "Installing rcm on OS X"
+    # Install with homebrew
+    brew tap thoughtbot/formulae
+    brew install rcm
+  }
+  ;;
 
-      # Ensure homebrew has been installed
-      curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
+  # Ubuntu
+  Linux ) command -v rcup >/dev/null 2>&1 || {
+    echo "Installing rcm on Ubuntu"
 
-      # Install with homebrew
-      brew tap thoughtbot/formulae
-      brew install rcm
-      ;;
+    # Make tmp directory and change into it
+    mkdir -p /tmp/rcm && cd /tmp/rcm
 
-    # Install rcm to ~/local
-    Linux ) echo "Installing rcm on Ubuntu"
+    # Download the source
+    curl http://thoughtbot.github.io/rcm/dist/rcm-1.2.1.tar.gz > /tmp/rcm.tar.gz
 
-      # Make tmp directory and change into it
-      mkdir -p /tmp/rcm && cd /tmp/rcm
+    # Extract the contents into our tmp directory
+    tar -xv --file=/tmp/rcm.tar.gz --strip-components=1 --directory=/tmp/rcm
 
-      # Download the source
-      curl http://thoughtbot.github.io/rcm/dist/rcm-1.2.1.tar.gz > /tmp/rcm.tar.gz
+    # Configure rcm to run out of our dotfiles and install
+    ./configure --prefix=$PREFIX && make && make install
+  }
+  ;;
+esac
 
-      # Extract the contents into our tmp directory
-      tar -xv --file=/tmp/rcm.tar.gz --strip-components=1 --directory=/tmp/rcm
-
-      # Configure rcm to run out of our dotfiles and install
-      ./configure --prefix=$PREFIX && make && make install
-
-      # These path additions should be in the zshrc as well
-      export PATH=$PREFIX/bin:$PATH
-      export MANPATH=$PREFIX/share:$PATH
-      ;;
-
-  esac
-
-  # Ensure the .rcrc file exists before rcup is run at all
-  ln -sf $DOTFILES/rcrc $HOME/.rcrc
-
-  # Run rcup
-  rcup
-}
+# Ensure the .rcrc file exists before rcup is run at all
+ln -sf $DOTFILES/rcrc $HOME/.rcrc
 
