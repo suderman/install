@@ -6,15 +6,35 @@
 # Open a terminal and run this command:
 # curl https://raw.github.com/suderman/install/master/oh-my-zsh | sh
 
+# oh-my-zsh directory
+OMZ=$HOME/.oh-my-zsh
+
+# Check if the directory exists
+if [ -d $OMZ ]; then
+
+  # Now check if it's a git repo
+  if [ -d $OMZ/.git ]; then
+
+    # It is? Great, let update it!
+    echo "Updating oh-my-zsh..."
+    cd $OMZ && git pull
+
+  # It's not? Rename it so we can install this one
+  else
+    echo "Backing up existing $OMZ to make room for the new one!"
+    mv $OMZ $OMZ.backup
+  fi
+fi
+
 # Check for and install oh-my-zsh
-if [ ! -d $HOME/.oh-my-zsh ]; then
+if [ ! -d $OMZ ]; then
 
   # Ensure git exists
   curl -sS https://raw.github.com/suderman/install/master/git | sh
 
   # Clone oh-my-zsh into the home directory
-  echo "Installing ~/.oh-my-zsh"
-  git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+  echo "Installing oh-my-zsh..."
+  git clone https://github.com/robbyrussell/oh-my-zsh.git $OMZ
 
 fi
 
