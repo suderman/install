@@ -8,42 +8,18 @@
 
 # dotfiles and prefix directory
 DOTFILES=$HOME/.dotfiles
-PREFIX=$HOME/local
-
-# Is this OS X or Ubuntu? 
-case "`uname`" in
   
-  # OS X 
-  Darwin ) command -v rcup >/dev/null 2>&1 || {
-    echo "Installing rcm on OS X"
+command -v rcup >/dev/null 2>&1 || {
+  echo "Installing rcm"
 
-    # Ensure homebrew has been installed
-    curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
+  # Ensure homebrew has been installed
+  curl -sS https://raw.github.com/suderman/install/master/homebrew | sh
 
-    # Install with homebrew
-    brew tap thoughtbot/formulae
-    brew install rcm
-  }
-  ;;
+  # Install with homebrew
+  brew tap thoughtbot/formulae
+  brew install rcm
+}
 
-  # Ubuntu
-  Linux ) command -v rcup >/dev/null 2>&1 || {
-    echo "Installing rcm on Ubuntu"
-
-    # Make tmp directory and change into it
-    mkdir -p /tmp/rcm && cd /tmp/rcm
-
-    # Download the source
-    curl http://thoughtbot.github.io/rcm/dist/rcm-1.2.1.tar.gz > /tmp/rcm.tar.gz
-
-    # Extract the contents into our tmp directory
-    tar -xv --file=/tmp/rcm.tar.gz --strip-components=1 --directory=/tmp/rcm
-
-    # Configure rcm to run out of our dotfiles and install
-    ./configure --prefix=$PREFIX && make && make install
-  }
-  ;;
-esac
 
 # Ensure the .rcrc file exists before rcup is run at all
 ln -sf $DOTFILES/rcrc $HOME/.rcrc

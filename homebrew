@@ -23,7 +23,7 @@ case "`uname`" in
 
   # Ubuntu
   Linux ) command -v brew >/dev/null 2>&1 || {
-    echo "Installing homebrew on Ubuntu"
+    echo "Installing homebrew on Linux"
 
     # Dependencies
     sudo apt-get install build-essential curl git-core ruby libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
