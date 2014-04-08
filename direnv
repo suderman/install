@@ -6,9 +6,6 @@
 # Open a terminal and run this command:
 # curl https://raw.github.com/suderman/install/master/direnv | sh
 
-# prefix directory
-PREFIX=$HOME/local
-
 # Check if direnv exists
 command -v direnv >/dev/null 2>&1 || {
 

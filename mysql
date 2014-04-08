@@ -6,9 +6,6 @@
 # Open a terminal and run this command:
 # curl https://raw.github.com/suderman/install/master/mysql | sh
 
-# prefix directory
-PREFIX=$HOME/local
-
 # Check if mysql exists
 command -v mysql >/dev/null 2>&1 || {
 
