@@ -19,7 +19,7 @@ command -v node >/dev/null 2>&1 || {
       command -v app >/dev/null 2>&1 || { curl -sS https://raw.github.com/suderman/app/master/install.sh | sh; }
 
       # Install node with app
-      app "http://nodejs.org/dist/v0.10.26/node-v0.10.26.pkg"
+      app "http://nodejs.org/dist/v0.12.1/node-v0.12.1.pkg"
       ;;
 
     # Install node on Ubuntu
