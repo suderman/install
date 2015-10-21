@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# 2014 Jon Suderman
+# 2015 Jon Suderman
 # https://github.com/suderman/install/
 
 # Open a terminal and run this command:
@@ -14,10 +14,9 @@ case "`uname`" in
     echo "Installing homebrew on OS X"
 
     # Ensure command line tools have been installed
-    curl -sS https://raw.github.com/suderman/install/master/osx-gcc | sh
 
     # Run install script
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   }
   ;;
 
